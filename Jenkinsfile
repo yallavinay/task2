@@ -1,19 +1,21 @@
 pipeline {
   agent any
-   options {
-        // Always run even if no SCM changes
-        skipDefaultCheckout(false)
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-    }
+
+  options {
+    // Always run even if no SCM changes
+    skipDefaultCheckout(false)
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+  }
+
   environment {
     DOCKERHUB_REPO = 'vinayyalla6470/nodejs-ci-cd-app'
     IMAGE_TAG = "${env.BUILD_NUMBER}"
     EC2_HOST = '13.60.98.2'
   }
-  tools {
-  nodejs 'NodeJS_20'
-}
 
+  tools {
+    nodejs 'NodeJS_20'
+  }
 
   stages {
     stage('Checkout') {
@@ -33,8 +35,8 @@ pipeline {
     stage('Test') {
       steps {
         script {
-          // Use Docker with Node.js pre-installed for faster execution
-          sh 'docker run --rm -v $(pwd):/usr/src/app -w /usr/src/app node:20-alpine sh -c "npm install --only=dev --no-audit --prefer-offline && npm test"'
+          sh 'npm install'
+          sh 'npm test'
         }
       }
     }
