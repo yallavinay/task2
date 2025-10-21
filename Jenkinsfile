@@ -26,17 +26,12 @@ pipeline {
       }
     }
 
-    stage('Setup Node') {
-      steps {
-        sh 'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -'
-        sh 'sudo apt-get install -y nodejs'
-      }
-    }
-
     stage('Test') {
       steps {
-        sh 'npm install'
-        sh 'npm test'
+        script {
+          // Use Docker with Node.js pre-installed for faster execution
+          sh 'docker run --rm -v $(pwd):/usr/src/app -w /usr/src/app node:20-alpine sh -c "npm install --only=dev --no-audit --prefer-offline && npm test"'
+        }
       }
     }
 
