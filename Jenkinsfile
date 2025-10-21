@@ -8,7 +8,7 @@ pipeline {
   environment {
     DOCKERHUB_REPO = 'vinayyalla6470/nodejs-ci-cd-app'
     IMAGE_TAG = "${env.BUILD_NUMBER}"
-    EC2_HOST = '13.49.66.177'
+    EC2_HOST = '13.60.98.2'
   }
 
   stages {
