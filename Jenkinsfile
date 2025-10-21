@@ -10,6 +10,10 @@ pipeline {
     IMAGE_TAG = "${env.BUILD_NUMBER}"
     EC2_HOST = '13.60.98.2'
   }
+  tools {
+  nodejs 'NodeJS_20'
+}
+
 
   stages {
     stage('Checkout') {
