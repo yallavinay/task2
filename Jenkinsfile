@@ -1,6 +1,10 @@
 pipeline {
   agent any
-
+   options {
+        // Always run even if no SCM changes
+        skipDefaultCheckout(false)
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
   environment {
     DOCKERHUB_REPO = 'vinayyalla6470/nodejs-ci-cd-app'
     IMAGE_TAG = "${env.BUILD_NUMBER}"
