@@ -26,6 +26,13 @@ pipeline {
       }
     }
 
+    stage('Setup Node') {
+      steps {
+        sh 'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -'
+        sh 'sudo apt-get install -y nodejs'
+      }
+    }
+
     stage('Test') {
       steps {
         sh 'npm install'
