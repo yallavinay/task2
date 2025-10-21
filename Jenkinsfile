@@ -13,9 +13,6 @@ pipeline {
     EC2_HOST = '13.60.98.2'
   }
 
-  tools {
-    nodejs 'NodeJS_20'
-  }
 
   stages {
     stage('Checkout') {
@@ -35,8 +32,8 @@ pipeline {
     stage('Test') {
       steps {
         script {
-          sh 'npm install'
-          sh 'npm test'
+          // Use Docker to avoid system library issues
+          sh 'docker run --rm -v $(pwd):/usr/src/app -w /usr/src/app node:20-alpine sh -c "npm install --only=dev && npm test"'
         }
       }
     }
