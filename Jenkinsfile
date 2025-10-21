@@ -2,9 +2,9 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_REPO = 'your-dockerhub-username/nodejs-ci-cd-app'
+    DOCKERHUB_REPO = 'vinayyalla6470/nodejs-ci-cd-app'
     IMAGE_TAG = "${env.BUILD_NUMBER}"
-    EC2_HOST = 'YOUR_EC2_PUBLIC_IP'
+    EC2_HOST = '13.49.66.177'
   }
 
   stages {
@@ -25,7 +25,7 @@ pipeline {
     stage('Test') {
       steps {
         script {
-          sh 'docker run --rm -v $(pwd):/usr/src/app -w /usr/src/app node:20-alpine sh -lc "npm ci && npm test"'
+          sh 'docker run --rm -v $(pwd):/usr/src/app -w /usr/src/app node:20-alpine sh -lc "npm install && npm test"'
         }
       }
     }
