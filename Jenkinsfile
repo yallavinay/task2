@@ -29,13 +29,13 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('Testing') {
       steps {
         echo 'Skipping tests for faster deployment'
       }
     }
 
-    stage('Push to Docker Hub') {
+    stage('Pushing to Docker Hub') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
@@ -44,7 +44,7 @@ pipeline {
       }
     }
 
-    stage('Deploy to AWS EC2') {
+    stage('Deploy to Docker') {
       steps {
         sshagent (credentials: ['aws-ssh-key']) {
           sh """
