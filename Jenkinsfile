@@ -48,7 +48,7 @@ pipeline {
       steps {
         sshagent (credentials: ['aws-ssh-key']) {
           sh """
-            ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@${EC2_HOST} \
               'sudo docker pull ${DOCKERHUB_REPO}:${IMAGE_TAG} && \
                (sudo docker rm -f nodejs-ci-cd-app || true) && \
                sudo docker run -d --name nodejs-ci-cd-app -p 80:3000 ${DOCKERHUB_REPO}:${IMAGE_TAG}'
